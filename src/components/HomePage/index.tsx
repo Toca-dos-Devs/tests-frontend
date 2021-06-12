@@ -1,6 +1,7 @@
+import Link from 'next/link';
+
 import {
   Flex,
-  Container,
   Heading,
   HStack,
   Stack,
@@ -43,19 +44,23 @@ export const HomePage = () => {
           </Text>
         </Stack>
         <Stack spacing={32} direction="row" marginTop={14}>
-          <Button
-            rounded="full"
-            px={12}
-            height={16}
-            colorScheme="orange"
-            bg="orange.400"
-            _hover={{ bg: 'orange.500' }}
-          >
-            Iniciar
-          </Button>
-          <Button rounded="full" px={12} height={16}>
-            Leia mais
-          </Button>
+          <Link href="/scheduling" passHref>
+            <Button
+              rounded="full"
+              px={12}
+              height={16}
+              colorScheme="orange"
+              bg="orange.400"
+              _hover={{ bg: 'orange.500' }}
+            >
+              Iniciar
+            </Button>
+          </Link>
+          <Link href="/learnMore" passHref>
+            <Button rounded="full" px={12} height={16}>
+              Leia mais
+            </Button>
+          </Link>
         </Stack>
       </Flex>
 
