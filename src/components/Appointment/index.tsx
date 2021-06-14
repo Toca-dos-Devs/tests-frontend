@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { format } from 'date-fns';
 
@@ -10,11 +10,10 @@ import {
   Stack,
   Text,
   Input,
+  InputGroup,
   Textarea,
   Button,
-  Image,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 export const Appointment = () => {
   const [date, setDate] = useState(new Date());
@@ -42,7 +41,7 @@ export const Appointment = () => {
         >
           <Heading
             fontWeight={600}
-            fontSize={{ base: '3xl', sm: '6xl', md: '8xl' }}
+            fontSize={{ base: '3xl', sm: '4xl', md: '8xl' }}
             lineHeight="110%"
             color="white"
           >
@@ -56,31 +55,49 @@ export const Appointment = () => {
           </Text>
         </Stack>
 
-        <Stack spacing={32} direction="row" marginTop={14}>
+        <Stack
+          spacing={{ base: 8, md: 10 }}
+          direction={{ base: 'column', md: 'row' }}
+          marginTop={14}
+          align="center"
+        >
           <Calendar onChange={setDate} value={date} />
           <Flex
             direction="column"
             align="center"
             justifyContent="space-between"
           >
-            <Stack spacing={3}>
+            <InputGroup>
               <Input
                 name="title"
                 placeholder="Titulo"
+                color="white"
                 size="lg"
                 colorScheme="whiteAlpha"
+                marginRight="4"
+                marginBottom="4"
               />
               <Input
                 name="hour"
+                color="white"
                 placeholder="Horário"
                 type="time"
                 size="lg"
+                w={160}
                 colorScheme="whiteAlpha"
               />
-              <Textarea placeholder="Descrição" name="description" />
-            </Stack>
+            </InputGroup>
+            <Textarea
+              marginBottom="4"
+              placeholder="Descrição"
+              name="description"
+              color="white"
+            />
+
             <Button
-              rounded="full"
+              rounded="8"
+              type="submit"
+              w="100%"
               px={12}
               height={16}
               colorScheme="orange"
