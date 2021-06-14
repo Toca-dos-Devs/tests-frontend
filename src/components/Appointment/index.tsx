@@ -3,9 +3,17 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 
-import { Flex, Heading, Stack, Text, Button, Image } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  Input,
+  Textarea,
+  Button,
+  Image,
+} from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 export const Appointment = () => {
@@ -50,16 +58,38 @@ export const Appointment = () => {
 
         <Stack spacing={32} direction="row" marginTop={14}>
           <Calendar onChange={setDate} value={date} />
-          <Button
-            rounded="full"
-            px={12}
-            height={16}
-            colorScheme="orange"
-            bg="orange.400"
-            _hover={{ bg: 'orange.500' }}
+          <Flex
+            direction="column"
+            align="center"
+            justifyContent="space-between"
           >
-            Agendar
-          </Button>
+            <Stack spacing={3}>
+              <Input
+                name="title"
+                placeholder="Titulo"
+                size="lg"
+                colorScheme="whiteAlpha"
+              />
+              <Input
+                name="hour"
+                placeholder="Horário"
+                type="time"
+                size="lg"
+                colorScheme="whiteAlpha"
+              />
+              <Textarea placeholder="Descrição" name="description" />
+            </Stack>
+            <Button
+              rounded="full"
+              px={12}
+              height={16}
+              colorScheme="orange"
+              bg="orange.400"
+              _hover={{ bg: 'orange.500' }}
+            >
+              Agendar
+            </Button>
+          </Flex>
         </Stack>
       </Flex>
     </Stack>
