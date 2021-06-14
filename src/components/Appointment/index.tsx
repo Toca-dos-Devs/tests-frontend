@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-
+import { useState } from 'react';
 import { format } from 'date-fns';
-
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Calendar from 'react-calendar';
 
 import {
@@ -15,13 +14,42 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+type FormData = {
+  title: string;
+  hour: string;
+  description: string;
+};
+
+type AppointmentProps = {
+  dateAppointment: string;
+  title: string;
+  hour: string;
+  description: string;
+};
+
 export const Appointment = () => {
   const [date, setDate] = useState(new Date());
+  const [appointment, setAppointment] = useState<AppointmentProps[]>([]);
 
-  useEffect(() => {
-    const dataTest = format(date, 'yyyy-MM-dd');
-    console.log(dataTest);
-  }, [date]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const createApoointment: SubmitHandler<FormData> = (values, e) => {
+    const dateAppointment = format(date, 'yyyy-MM-dd');
+
+    const newAppointment = {
+      dateAppointment,
+      ...values,
+    };
+
+    setAppointment([...appointment, newAppointment]);
+
+    e?.target.reset();
+  };
+  console.log(appointment);
 
   return (
     <Stack
@@ -37,7 +65,7 @@ export const Appointment = () => {
           textAlign="center"
           align="center"
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 20, md: 28 }}
+          py={{ base: 20, md: 18 }}
         >
           <Heading
             fontWeight={600}
@@ -56,6 +84,8 @@ export const Appointment = () => {
         </Stack>
 
         <Stack
+          as="form"
+          onSubmit={handleSubmit(createApoointment)}
           spacing={{ base: 8, md: 10 }}
           direction={{ base: 'column', md: 'row' }}
           marginTop={14}
@@ -69,7 +99,8 @@ export const Appointment = () => {
           >
             <InputGroup>
               <Input
-                name="title"
+                {...register('title')}
+                error={errors.title}
                 placeholder="Titulo"
                 color="white"
                 size="lg"
@@ -78,7 +109,8 @@ export const Appointment = () => {
                 marginBottom="4"
               />
               <Input
-                name="hour"
+                {...register('hour')}
+                error={errors.hour}
                 color="white"
                 placeholder="Horário"
                 type="time"
@@ -88,9 +120,10 @@ export const Appointment = () => {
               />
             </InputGroup>
             <Textarea
+              {...register('description')}
+              error={errors.description}
               marginBottom="4"
               placeholder="Descrição"
-              name="description"
               color="white"
             />
 
