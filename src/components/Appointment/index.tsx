@@ -20,7 +20,7 @@ type FormData = {
   description: string;
 };
 
-type AppointmentProps = {
+export type AppointmentProps = {
   dateAppointment: string;
   title: string;
   hour: string;
@@ -31,11 +31,7 @@ export const Appointment = () => {
   const [date, setDate] = useState(new Date());
   const [appointment, setAppointment] = useState<AppointmentProps[]>([]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const createApoointment: SubmitHandler<FormData> = (values, e) => {
     const dateAppointment = format(date, 'yyyy-MM-dd');
@@ -49,6 +45,7 @@ export const Appointment = () => {
 
     e?.target.reset();
   };
+
   console.log(appointment);
 
   return (
@@ -99,8 +96,8 @@ export const Appointment = () => {
           >
             <InputGroup>
               <Input
+                data-testid="title"
                 {...register('title')}
-                error={errors.title}
                 placeholder="Titulo"
                 color="white"
                 size="lg"
@@ -109,8 +106,8 @@ export const Appointment = () => {
                 marginBottom="4"
               />
               <Input
+                data-testid="hour"
                 {...register('hour')}
-                error={errors.hour}
                 color="white"
                 placeholder="Horário"
                 type="time"
@@ -120,8 +117,8 @@ export const Appointment = () => {
               />
             </InputGroup>
             <Textarea
+              data-testid="description"
               {...register('description')}
-              error={errors.description}
               marginBottom="4"
               placeholder="Descrição"
               color="white"

@@ -66,7 +66,7 @@ export const HomePage = () => {
 
       <Flex w="full">
         <Flex alignItems="center">
-          <Image src="/test.svg" w={702} h={448} />
+          <Image src="/test.svg" w={702} h={448} alt="Image schedule" />
         </Flex>
       </Flex>
     </HStack>
